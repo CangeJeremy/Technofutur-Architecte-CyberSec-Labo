@@ -56,5 +56,26 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="Functions" />
+    <Folder Include="Procedures" />
+    <Folder Include="Scripts" />
+    <Folder Include="Security" />
+    <Folder Include="Tables" />
+    <Folder Include="Security\Roles" />
+    <Folder Include="Security\Schemas" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Functions\HashPwd.sql" />
+    <Build Include="Tables\Users.sql" />
+    <Build Include="Security\Schemas\AppUser.sql" />
+    <Build Include="Security\Roles\AppUser.sql" />
+    <Build Include="Procedures\Login.sql" />
+    <Build Include="Procedures\Register.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\GenFirstAdminAcc.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Technofutur Architecte CyberSec Labo.DB.publish.xml" />
   </ItemGroup>
 </Project>

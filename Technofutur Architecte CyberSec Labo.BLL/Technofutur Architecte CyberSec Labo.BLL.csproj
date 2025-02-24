@@ -7,4 +7,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Technofutur Architecte CyberSec Labo.DAL\Technofutur Architecte CyberSec Labo.DAL.csproj" />
+      <ProjectReference Include="..\Technofutur Architecte CyberSec Labo.DOMAIN\Technofutur Architecte CyberSec Labo.DOMAIN.csproj" />
+    </ItemGroup>
+
 </Project>
