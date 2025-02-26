@@ -20,3 +20,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.blurred-text {
+    filter: blur(8px);
+    transition: filter 0.3s ease-in-out;
+    user-select: none;
+    cursor: pointer;
+}
+
+.blurred-text.visible {
+    filter: blur(0);
+}

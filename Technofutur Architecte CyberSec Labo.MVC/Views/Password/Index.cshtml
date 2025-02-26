@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Technofutur_Architecte_CyberSec_Labo.MVC.Models.PasswordViewModel>
+
+@section DataTablesCss{
+<link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.min.css" />
+}
+
+<h1>My Passwords</h1>
+<hr />
+<!-- Button trigger modal -->
+<a asp-asp-controller="Password" asp-action="Create" class="btn btn-primary">
+    Add new entry
+</a>
+<div class="container-fluid container-lg my-5">
+    <table id="passTable">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Website
+                </th>
+                <th>
+                    Password
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model is not null)
+            {
+                @foreach (PasswordViewModel passwordViewModel in Model)
+                {
+                    <tr>
+                        <td>
+                            @passwordViewModel.Name
+                        </td>
+                        <td>
+                            @passwordViewModel.Website
+                        </td>
+                        <td class="blurred-text">
+                            <p class="toggle-blur">@passwordViewModel.Password</p>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@{
+    var newPwd = new Technofutur_Architecte_CyberSec_Labo.MVC.Models.FormModel.Password.CreatePwdModel();
+}
+
+@section DataTablesJs{
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        let table = new DataTable('#passTable', {
+            columnDefs: [{searchable:false, targets:2}]
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".toggle-blur").forEach(button => {
+                button.addEventListener("click", function () {
+                    const texte = this.closest("tr").querySelector(".blurred-text");
+                    if (!texte) return;
+
+                    texte.classList.toggle("visible");
+                });
+            });
+        });
+    </script>
+}

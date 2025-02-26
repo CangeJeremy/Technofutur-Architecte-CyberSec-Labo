@@ -5,6 +5,7 @@ using System.Security.Claims;
 using Technofutur_Architecte_CyberSec_Labo.BLL.Interfaces;
 using Technofutur_Architecte_CyberSec_Labo.DOMAIN.Entities;
 using Technofutur_Architecte_CyberSec_Labo.MVC.Models.FormModel.User;
+using Technofutur_Architecte_CyberSec_Labo.MVC.Helpers;
 
 namespace Technofutur_Architecte_CyberSec_Labo.MVC.Controllers.Auth
 {
@@ -34,6 +35,17 @@ namespace Technofutur_Architecte_CyberSec_Labo.MVC.Controllers.Auth
 				{
 					return NotFound(new { Message = "This account doesn't exist." });
 				}
+
+				if (userModel.Deactivated)
+				{
+					TempData["ErrorMessage"] = "This account has been deactivated.";
+					return RedirectToAction("Index");
+				}
+
+				string salt = userModel.Id.ToString();
+				byte[] derivedKey = CryptoHelper.DeriveKey(userLogin.Password, salt);
+
+				HttpContext.Session.Set("UserEncryptionKey", derivedKey);
 
 				List<Claim> claims = new List<Claim>()
 				{

@@ -23,7 +23,7 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 			{
 				using (SqlCommand command = _sqlConnection.CreateCommand())
 				{
-					command.CommandText = "SELECT Id, Email, FirstName, LastName, Perms, City, Created, Updated, IsActive, IsBan FROM Users";
+					command.CommandText = "SELECT Id, Email, Perms, Created, Updated, Deactivated FROM Users";
 					command.CommandType = CommandType.Text;
 
 					_sqlConnection.Open();
@@ -39,14 +39,10 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 									Id = reader.GetInt32("Id"),
 									Email = reader.GetString("Email"),
 									Password = "REDACTED",
-									FirstName = reader.GetString("FirstName"),
-									LastName = reader.GetString("LastName"),
 									Role = reader.GetString("Perms"),
-									City = reader.GetString("City"),
 									Created = reader.GetDateTime("Created"),
 									Updated = reader.GetDateTime("Updated"),
-									IsAccountActive = reader.GetBoolean("IsActive"),
-									IsAccountBan = reader.GetBoolean("IsBan")
+									Deactivated = reader.GetBoolean("Deactivated")
 								});
 							}
 						}
@@ -67,7 +63,7 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 			{
 				using (SqlCommand command = _sqlConnection.CreateCommand())
 				{
-					command.CommandText = "SELECT Id, Email, FirstName, LastName, Perms, City, Created, Updated, IsActive, IsBan FROM Users WHERE Id = @Id";
+					command.CommandText = "SELECT Id, Email, Perms, Created, Updated, Deactivated FROM Users WHERE Id = @Id";
 					command.CommandType = CommandType.Text;
 
 					command.Parameters.AddWithValue("Id", id);
@@ -84,14 +80,11 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 								{
 									Id = reader.GetInt32("Id"),
 									Email = reader.GetString("Email"),
-									FirstName = reader.GetString("FirstName"),
-									LastName = reader.GetString("LastName"),
+									Password = "REDACTED",
 									Role = reader.GetString("Perms"),
-									City = reader.GetString("City"),
 									Created = reader.GetDateTime("Created"),
 									Updated = reader.GetDateTime("Updated"),
-									IsAccountActive = reader.GetBoolean("IsActive"),
-									IsAccountBan = reader.GetBoolean("IsBan")
+									Deactivated = reader.GetBoolean("Deactivated")
 								};
 							}
 						}
@@ -112,7 +105,7 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 			{
 				using (SqlCommand command = _sqlConnection.CreateCommand())
 				{
-					command.CommandText = "SELECT Id, Email, FirstName, LastName, Perms, City, Created, Updated, IsActive, IsBan FROM Users WHERE Email = @Email";
+					command.CommandText = "SELECT Id, Email, Perms, Created, Updated, Deactivated FROM Users WHERE Email = @Email";
 					command.CommandType = CommandType.Text;
 
 					command.Parameters.AddWithValue("Email", email);
@@ -129,14 +122,11 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 								{
 									Id = reader.GetInt32("Id"),
 									Email = reader.GetString("Email"),
-									FirstName = reader.GetString("FirstName"),
-									LastName = reader.GetString("LastName"),
+									Password = "REDACTED",
 									Role = reader.GetString("Perms"),
-									City = reader.GetString("City"),
 									Created = reader.GetDateTime("Created"),
 									Updated = reader.GetDateTime("Updated"),
-									IsAccountActive = reader.GetBoolean("IsActive"),
-									IsAccountBan = reader.GetBoolean("IsBan")
+									Deactivated = reader.GetBoolean("Deactivated")
 								};
 							}
 						}
@@ -162,18 +152,14 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 
 					command.Parameters.AddWithValue("Email", userToCreate.Email);
 					command.Parameters.AddWithValue("Pwd", userToCreate.Password);
-					command.Parameters.AddWithValue("FirstName", userToCreate.FirstName);
-					command.Parameters.AddWithValue("LastName", userToCreate.LastName);
-					command.Parameters.AddWithValue("Role", userToCreate.Role);
-					command.Parameters.AddWithValue("City", userToCreate.City);
 
 					_sqlConnection.Open();
 
 					try
 					{
-						int insertedId = 0;
+						int? insertedId = 0;
 
-						insertedId = (int)command.ExecuteScalar();
+						insertedId = (int?)command.ExecuteScalar();
 
 						if (insertedId > 0)
 						{
@@ -263,8 +249,7 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 									Id = reader.GetInt32("Id"),
 									Email = reader.GetString("Email"),
 									Role = reader.GetString("Perms"),
-									IsAccountActive = reader.GetBoolean("IsActive"),
-									IsAccountBan = reader.GetBoolean("IsBan")
+									Deactivated = reader.GetBoolean("Deactivated")
 								};
 							}
 						}
