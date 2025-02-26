@@ -6,6 +6,7 @@
 - Description des fonctionnalités
 - Déploiement
 - Rapport de sécurité
+- Pour aller plus loin
 
 Le projet présent dans ce repository n'est pas terminé. Certaines améliorations sont à apporter et des features manquantes sont à implémenter. Ce projet n'a été crée que pour présenter les compétences acquises lors de la formation afin de valider celle-ci.
 
@@ -55,3 +56,10 @@ Ci-dessous les sécurité mises en place dans le projet.
 - Encryption / Decryption des mots de passes entrés par l'utilisateur dans le Système
 - Utilisation des Sessions avec timeout
 - Création d'un Schéma DB et d'un Role DB autre que DBO.
+
+## Pour aller plus loin
+Voici une liste des features que je souhaite apporter à ce projet :
+- 2FA (Google Auth / MS Auth)
+- Captcha (Prévention register / login bots)
+- Rate Limiting (Prévention register / login bots)
+- Confirmation d'inscription (Email)
