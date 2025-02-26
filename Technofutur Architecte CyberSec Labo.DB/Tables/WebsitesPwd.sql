@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[WebsitesPwd]
+﻿CREATE TABLE [AppUser].[WebsitesPwd]
 (
 	[Id] INT NOT NULL IDENTITY,
 	[UserId] INT NOT NULL,

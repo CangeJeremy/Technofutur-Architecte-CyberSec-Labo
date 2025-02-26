@@ -46,6 +46,7 @@ De la les utilisateurs ont accès à leur profil (Edition (non implémenté)) ma
 - Dans Azure, créer une Azure SQL Database
 - Noter le nom du serveur, utilisateur et mot de passes
 - Mettre à jour la chaîne de connexion dans appsettings.json
+Ne pas oublier de PUBLIER la base de donnée /!\
 
 ## Rapport de sécurité
 Ci-dessous les sécurité mises en place dans le projet.
