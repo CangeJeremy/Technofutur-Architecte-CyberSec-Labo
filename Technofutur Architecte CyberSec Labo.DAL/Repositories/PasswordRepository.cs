@@ -32,15 +32,24 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 
 					_sqlConnection.Open();
 
-					int insertedId = command.ExecuteNonQuery();
-
-					if (insertedId > 0)
+					try
 					{
-						wpm = new WebsitePwdModel
+						int insertedId = command.ExecuteNonQuery();
+
+						if (insertedId > 0)
 						{
-							Name = websitePwdModel.Name
-						};
+							wpm = new WebsitePwdModel
+							{
+								Name = websitePwdModel.Name
+							};
+						}
 					}
+					catch (Exception ex)
+					{
+						LoggerDbRepository logger = new LoggerDbRepository(_sqlConnection);
+						logger.Create("Create in PasswordRepository", ex.Message);
+					}
+
 
 					_sqlConnection.Close();
 				}
@@ -69,22 +78,30 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 
 					_sqlConnection.Open();
 
-					using (SqlDataReader reader = command.ExecuteReader())
+					try
 					{
-						if (reader.HasRows)
+						using (SqlDataReader reader = command.ExecuteReader())
 						{
-							while (reader.Read())
+							if (reader.HasRows)
 							{
-								wpm.Add(new WebsitePwdModel
+								while (reader.Read())
 								{
-									Id = reader.GetInt32("Id"),
-									UserId = reader.GetInt32("UserId"),
-									Name = reader.GetString("Name"),
-									Website = reader.GetString("Website"),
-									Password = reader.GetString("Pwd")
-								});
+									wpm.Add(new WebsitePwdModel
+									{
+										Id = reader.GetInt32("Id"),
+										UserId = reader.GetInt32("UserId"),
+										Name = reader.GetString("Name"),
+										Website = reader.GetString("Website"),
+										Password = reader.GetString("Pwd")
+									});
+								}
 							}
 						}
+					}
+					catch (Exception ex)
+					{
+						LoggerDbRepository logger = new LoggerDbRepository(_sqlConnection);
+						logger.Create("GetAllUserPwd in PasswordRepository", ex.Message);
 					}
 
 					_sqlConnection.Close();

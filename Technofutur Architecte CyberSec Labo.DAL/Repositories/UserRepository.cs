@@ -28,25 +28,34 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 
 					_sqlConnection.Open();
 
-					using (SqlDataReader reader = command.ExecuteReader())
+					try
 					{
-						if (reader.HasRows)
+						using (SqlDataReader reader = command.ExecuteReader())
 						{
-							while (reader.Read())
+							if (reader.HasRows)
 							{
-								users.Add(new UserModel
+								while (reader.Read())
 								{
-									Id = reader.GetInt32("Id"),
-									Email = reader.GetString("Email"),
-									Password = "REDACTED",
-									Role = reader.GetString("Perms"),
-									Created = reader.GetDateTime("Created"),
-									Updated = reader.GetDateTime("Updated"),
-									Deactivated = reader.GetBoolean("Deactivated")
-								});
+									users.Add(new UserModel
+									{
+										Id = reader.GetInt32("Id"),
+										Email = reader.GetString("Email"),
+										Password = "REDACTED",
+										Role = reader.GetString("Perms"),
+										Created = reader.GetDateTime("Created"),
+										Updated = reader.GetDateTime("Updated"),
+										Deactivated = reader.GetBoolean("Deactivated")
+									});
+								}
 							}
 						}
 					}
+					catch (Exception ex)
+					{
+						LoggerDbRepository logger = new LoggerDbRepository(_sqlConnection);
+						logger.Create("GetUsers in UserRepository", ex.Message);
+					}
+
 
 					_sqlConnection.Close();
 				}
@@ -70,25 +79,34 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 
 					_sqlConnection.Open();
 
-					using (SqlDataReader reader = command.ExecuteReader())
+					try
 					{
-						if (reader.HasRows)
+						using (SqlDataReader reader = command.ExecuteReader())
 						{
-							while (reader.Read())
+							if (reader.HasRows)
 							{
-								user = new UserModel
+								while (reader.Read())
 								{
-									Id = reader.GetInt32("Id"),
-									Email = reader.GetString("Email"),
-									Password = "REDACTED",
-									Role = reader.GetString("Perms"),
-									Created = reader.GetDateTime("Created"),
-									Updated = reader.GetDateTime("Updated"),
-									Deactivated = reader.GetBoolean("Deactivated")
-								};
+									user = new UserModel
+									{
+										Id = reader.GetInt32("Id"),
+										Email = reader.GetString("Email"),
+										Password = "REDACTED",
+										Role = reader.GetString("Perms"),
+										Created = reader.GetDateTime("Created"),
+										Updated = reader.GetDateTime("Updated"),
+										Deactivated = reader.GetBoolean("Deactivated")
+									};
+								}
 							}
 						}
 					}
+					catch (Exception ex)
+					{
+						LoggerDbRepository logger = new LoggerDbRepository(_sqlConnection);
+						logger.Create("GetUserById in UserRepository", ex.Message);
+					}
+
 
 					_sqlConnection.Close();
 				}
@@ -112,25 +130,34 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 
 					_sqlConnection.Open();
 
-					using (SqlDataReader reader = command.ExecuteReader())
+					try
 					{
-						if (reader.HasRows)
+						using (SqlDataReader reader = command.ExecuteReader())
 						{
-							if (reader.Read())
+							if (reader.HasRows)
 							{
-								user = new UserModel
+								if (reader.Read())
 								{
-									Id = reader.GetInt32("Id"),
-									Email = reader.GetString("Email"),
-									Password = "REDACTED",
-									Role = reader.GetString("Perms"),
-									Created = reader.GetDateTime("Created"),
-									Updated = reader.GetDateTime("Updated"),
-									Deactivated = reader.GetBoolean("Deactivated")
-								};
+									user = new UserModel
+									{
+										Id = reader.GetInt32("Id"),
+										Email = reader.GetString("Email"),
+										Password = "REDACTED",
+										Role = reader.GetString("Perms"),
+										Created = reader.GetDateTime("Created"),
+										Updated = reader.GetDateTime("Updated"),
+										Deactivated = reader.GetBoolean("Deactivated")
+									};
+								}
 							}
 						}
 					}
+					catch (Exception ex)
+					{
+						LoggerDbRepository logger = new LoggerDbRepository(_sqlConnection);
+						logger.Create("GetUserByEmail in UserRepository", ex.Message);
+					}
+
 
 					_sqlConnection.Close();
 				}
@@ -171,7 +198,8 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 					}
 					catch (Exception ex)
 					{
-						Debug.WriteLine(ex.Message);
+						LoggerDbRepository logger = new LoggerDbRepository(_sqlConnection);
+						logger.Create("Create in UserRepository", ex.Message);
 					}
 
 					_sqlConnection.Close();
@@ -238,21 +266,29 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 
 					_sqlConnection.Open();
 
-					using (SqlDataReader reader = command.ExecuteReader())
+					try
 					{
-						if (reader.HasRows)
+						using (SqlDataReader reader = command.ExecuteReader())
 						{
-							if (reader.Read())
+							if (reader.HasRows)
 							{
-								user = new UserModel
+								if (reader.Read())
 								{
-									Id = reader.GetInt32("Id"),
-									Email = reader.GetString("Email"),
-									Role = reader.GetString("Perms"),
-									Deactivated = reader.GetBoolean("Deactivated")
-								};
+									user = new UserModel
+									{
+										Id = reader.GetInt32("Id"),
+										Email = reader.GetString("Email"),
+										Role = reader.GetString("Perms"),
+										Deactivated = reader.GetBoolean("Deactivated")
+									};
+								}
 							}
 						}
+					}
+					catch (Exception ex)
+					{
+						LoggerDbRepository logger = new LoggerDbRepository(_sqlConnection);
+						logger.Create("Login in UserRepository", ex.Message);
 					}
 
 					_sqlConnection.Close();

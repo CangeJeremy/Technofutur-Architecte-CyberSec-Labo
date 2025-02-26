@@ -34,10 +34,12 @@ namespace Technofutur_Architecte_CyberSec_Labo.MVC
 			// Services
 			builder.Services.AddScoped<IUserService, UserService>();
 			builder.Services.AddScoped<IPasswordService, PasswordService>();
+			builder.Services.AddScoped<ILoggerDbService, LoggerDbService>();
 
 			// Repositories
 			builder.Services.AddScoped<IUserRepository, UserRepository>();
 			builder.Services.AddScoped<IPasswordRepository, PasswordRepository>();
+			builder.Services.AddScoped<ILoggerDbRepository, LoggerDbRepository>();
 
 			var app = builder.Build();
 
