@@ -71,6 +71,7 @@
     <Build Include="Security\Roles\AppUser.sql" />
     <Build Include="Procedures\Login.sql" />
     <Build Include="Procedures\Register.sql" />
+    <Build Include="Tables\WebsitesPwd.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\GenFirstAdminAcc.sql" />

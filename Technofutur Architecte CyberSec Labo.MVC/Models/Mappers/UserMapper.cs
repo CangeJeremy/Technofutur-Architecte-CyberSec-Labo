@@ -14,16 +14,25 @@ public static class UserMapper
 		};
 	}
 
+	public static UserModel userRegisterToUserModel (UserRegisterModel registerModel)
+	{
+		return new UserModel
+		{
+			Email = registerModel.Email,
+			Password = registerModel.Password
+		};
+	}
+
 	public static UserViewModel userModelToViewModel (UserModel userModel)
 	{
 		return new UserViewModel
 		{
+			Id = userModel.Id,
 			Email = userModel.Email,
-			FirstName = userModel.FirstName,
-			LastName = userModel.LastName,
-			City = userModel.City,
+			Role = userModel.Role,
 			Created = userModel.Created,
-			Updated = userModel.Updated
+			Updated = userModel.Updated,
+			Deactivated = userModel.Deactivated
 		};
 	}
 }

@@ -22,11 +22,22 @@ namespace Technofutur_Architecte_CyberSec_Labo.MVC
 			// Add Authentication (Cookie)
 			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt => opt.LoginPath = "/login");
 
+			// Add Sessions
+			builder.Services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(30);
+				options.Cookie.HttpOnly = true;
+				options.Cookie.IsEssential = true;
+			});
+			builder.Services.AddDistributedMemoryCache();
+
 			// Services
 			builder.Services.AddScoped<IUserService, UserService>();
+			builder.Services.AddScoped<IPasswordService, PasswordService>();
 
 			// Repositories
 			builder.Services.AddScoped<IUserRepository, UserRepository>();
+			builder.Services.AddScoped<IPasswordRepository, PasswordRepository>();
 
 			var app = builder.Build();
 
@@ -42,6 +53,7 @@ namespace Technofutur_Architecte_CyberSec_Labo.MVC
 
 			app.UseRouting();
 
+			app.UseSession();
 			app.UseAuthentication();
 			app.UseAuthorization();
 

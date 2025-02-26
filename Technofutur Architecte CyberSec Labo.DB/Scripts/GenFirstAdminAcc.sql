@@ -12,5 +12,5 @@ Modèle de script de post-déploiement
 
 IF ((SELECT COUNT(*) FROM [dbo].[Users]) = 0)
 BEGIN
-    INSERT INTO [dbo].[Users](Email, Pwd, FirstName, LastName, City, Perms) VALUES ('admin@admin.com', [dbo].[HashPwd]('Admin1234='), 'Admin', 'Admin', 'Bruxelles', 'Admin')
+    INSERT INTO [dbo].[Users](Email, Pwd, Perms) VALUES ('admin@admin.com', [dbo].[HashPwd]('Admin1234='), 'Admin')
 END
