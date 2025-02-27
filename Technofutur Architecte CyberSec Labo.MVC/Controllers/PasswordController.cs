@@ -138,5 +138,20 @@ namespace Technofutur_Architecte_CyberSec_Labo.MVC.Controllers
 			}
 			return RedirectToAction("Index");
 		}
+
+		[Authorize]
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Delete(int id)
+		{
+			bool isDeleted = _passwordService.Delete(id);
+
+			if (!isDeleted)
+			{
+				return BadRequest();
+			}
+
+			return RedirectToAction("Index");
+		}
 	}
 }

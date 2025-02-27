@@ -50,7 +50,10 @@
                             <a class="btn btn-primary" asp-action="Edit" asp-route-id="@passwordViewModel.Id">Edit</a>
                         </td>
                         <td>
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@passwordViewModel.Id">Delete</a>
+                            <form method="POST" asp-action="Delete">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@passwordViewModel.Id">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 }

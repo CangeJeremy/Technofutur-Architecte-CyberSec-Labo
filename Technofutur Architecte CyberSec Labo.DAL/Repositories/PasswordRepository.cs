@@ -60,7 +60,36 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 
 		public bool Delete(int id)
 		{
-			throw new NotImplementedException();
+			bool isDeleted = false;
+
+			using (_sqlConnection)
+			{
+				using (SqlCommand command = _sqlConnection.CreateCommand())
+				{
+					command.CommandText = "DELETE FROM WebsitesPwd WHERE Id = @Id";
+					command.CommandType = CommandType.Text;
+
+					command.Parameters.AddWithValue("Id", id);
+
+					_sqlConnection.Open();
+
+					try
+					{
+						command.ExecuteNonQuery();
+						isDeleted = true;
+					}
+					catch (Exception ex)
+					{
+						LoggerDbRepository logger = new LoggerDbRepository(_sqlConnection);
+						logger.Create("Delete in PasswordRepository", ex.Message);
+					}
+
+
+					_sqlConnection.Close();
+				}
+			}
+
+			return isDeleted;
 		}
 
 		public IEnumerable<WebsitePwdModel> GetAllUserPwd(int userId)
