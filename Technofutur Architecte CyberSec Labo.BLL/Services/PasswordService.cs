@@ -51,11 +51,25 @@ namespace Technofutur_Architecte_CyberSec_Labo.BLL.Services
 			return wpm;
 		}
 
+		public WebsitePwdModel GetById(int id, byte[] deriveKey)
+		{
+			WebsitePwdModel fromDb = _passwordRepository.GetById(id);
+			WebsitePwdModel byIdWpm = new WebsitePwdModel
+			{
+				Id = fromDb.Id,
+				Name = fromDb.Name,
+				Website = fromDb.Website,
+				Password = EncryptionHelper.Decrypt(fromDb.Password, deriveKey)
+			};
+
+			return byIdWpm;
+		}
 
 		public WebsitePwdModel? Update(WebsitePwdModel websitePwdModel, byte[] deriveKey)
 		{
 			WebsitePwdModel newWpm = new WebsitePwdModel
 			{
+				Id = websitePwdModel.Id,
 				Name = websitePwdModel.Name,
 				Website = websitePwdModel.Website,
 				Password = EncryptionHelper.Encrypt(websitePwdModel.Password, deriveKey)

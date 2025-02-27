@@ -8,6 +8,7 @@ namespace Technofutur_Architecte_CyberSec_Labo.MVC.Models.Mappers
 		{
 			return new PasswordViewModel
 			{
+				Id = websitePwdModel.Id,
 				Name = websitePwdModel.Name,
 				Website = websitePwdModel.Website,
 				Password = websitePwdModel.Password

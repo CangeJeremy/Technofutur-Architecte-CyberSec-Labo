@@ -27,8 +27,11 @@ namespace Technofutur_Architecte_CyberSec_Labo.DAL.Repositories
 					command.Parameters.AddWithValue("Method", method);
 					command.Parameters.AddWithValue("Error", error);
 
-					_sqlConnection.Open();
-
+					if(_sqlConnection.State == ConnectionState.Closed)
+					{
+						_sqlConnection.Open();
+					}
+					
 					try
 					{
 						command.ExecuteNonQuery();

@@ -23,6 +23,12 @@
                 <th>
                     Password
                 </th>
+                <th>
+                    Edit
+                </th>
+                <th>
+                    Delete
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -39,6 +45,12 @@
                         </td>
                         <td class="blurred-text">
                             <p class="toggle-blur">@passwordViewModel.Password</p>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@passwordViewModel.Id">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@passwordViewModel.Id">Delete</a>
                         </td>
                     </tr>
                 }

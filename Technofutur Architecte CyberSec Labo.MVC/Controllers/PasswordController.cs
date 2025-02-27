@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Technofutur_Architecte_CyberSec_Labo.BLL.Interfaces;
+using Technofutur_Architecte_CyberSec_Labo.DOMAIN.Entities;
 using Technofutur_Architecte_CyberSec_Labo.MVC.Models;
 using Technofutur_Architecte_CyberSec_Labo.MVC.Models.FormModel.Password;
 using Technofutur_Architecte_CyberSec_Labo.MVC.Models.Mappers;
-using Technofutur_Architecte_CyberSec_Labo.DOMAIN.Entities;
 
 namespace Technofutur_Architecte_CyberSec_Labo.MVC.Controllers
 {
@@ -24,7 +24,8 @@ namespace Technofutur_Architecte_CyberSec_Labo.MVC.Controllers
 		[HttpGet]
 		public IActionResult Index()
 		{
-			if (!HttpContext.Session.TryGetValue("UserEncryptionKey", out byte[] keyBytes)){
+			if (!HttpContext.Session.TryGetValue("UserEncryptionKey", out byte[] keyBytes))
+			{
 				HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
 				return RedirectToAction("", "Login");
 			}
@@ -55,6 +56,7 @@ namespace Technofutur_Architecte_CyberSec_Labo.MVC.Controllers
 
 		[Authorize]
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public IActionResult Create(CreatePwdModel createPwdModel)
 		{
 			bool isLoggedUserIdInt = int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out int loggedUserId);
@@ -82,6 +84,59 @@ namespace Technofutur_Architecte_CyberSec_Labo.MVC.Controllers
 			}
 
 			return BadRequest();
+		}
+
+		[Authorize]
+		[HttpGet]
+		public IActionResult Edit(int id)
+		{
+			if (!HttpContext.Session.TryGetValue("UserEncryptionKey", out byte[] keyBytes))
+			{
+				HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
+				return RedirectToAction("", "Login");
+			}
+
+			PasswordViewModel pvm = PasswordMapper.WebsitePwdModelToViewModel(_passwordService.GetById(id, keyBytes));
+
+			EditPwdModel epm = new EditPwdModel
+			{
+				Name = pvm.Name,
+				Website = pvm.Website,
+				Password = pvm.Password
+			};
+
+			return View(epm);
+		}
+
+		[Authorize]
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Edit(int id, EditPwdModel epm)
+		{
+			if (!HttpContext.Session.TryGetValue("UserEncryptionKey", out byte[] keyBytes))
+			{
+				HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
+				return RedirectToAction("", "Login");
+			}
+
+			WebsitePwdModel editWpm = new WebsitePwdModel
+			{
+				Id = id,
+				Name = epm.Name,
+				Website = epm.Website,
+				Password = epm.Password
+			};
+
+			if (ModelState.IsValid)
+			{
+				WebsitePwdModel? isUpdated = _passwordService.Update(editWpm, keyBytes);
+
+				if (isUpdated is null)
+				{
+					return BadRequest();
+				}
+			}
+			return RedirectToAction("Index");
 		}
 	}
 }
