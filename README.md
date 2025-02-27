@@ -16,7 +16,7 @@ Le projet présent dans ce repository n'est pas terminé. Certaines amélioratio
 
 ## Description des fonctionnalités
 Cette application vise à être une alternative à des services tel que bitwarden. Ce projet se basant sur la même logique permet à des utilisateurs de s'inscrire et de se connecter avec un compte "master" (combo email + password).
-De la les utilisateurs ont accès à leur profil (Edition (non implémenté)) mais également à une interface pour gérer leurs mots de passes (Ajout, Edition & Suppression (Edition & Suppression non implémentés)).
+De la les utilisateurs ont accès à leur profil (Edition (non implémenté)) mais également à une interface pour gérer leurs mots de passes (Ajout, Edition & Suppression).
 
 ## Déploiement
 ### Prérequis :
